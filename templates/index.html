@@ -8,206 +8,170 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="stadium-bg"></div>
-    <div class="stadium-overlay"></div>
-    <div class="bg-gradient"></div>
-    <div class="field-pattern"></div>
+    <div class="bg-pattern"></div>
     
-    <!-- Stadium Lights -->
-    <div class="stadium-lights">
-        <div class="light-tower left">
-            <div class="tower-pole"></div>
-            <div class="tower-head">
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
+    <div class="lights">
+        <div class="light-pole left">
+            <div class="pole"></div>
+            <div class="light-array">
+                <div class="bulb"></div>
+                <div class="bulb"></div>
+                <div class="bulb"></div>
+                <div class="bulb"></div>
             </div>
         </div>
-        <div class="light-tower right">
-            <div class="tower-pole"></div>
-            <div class="tower-head">
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
-                <div class="light-bulb"></div>
+        <div class="light-pole right">
+            <div class="pole"></div>
+            <div class="light-array">
+                <div class="bulb"></div>
+                <div class="bulb"></div>
+                <div class="bulb"></div>
+                <div class="bulb"></div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Floating Cricket Elements -->
-    <div class="floating-elements">
-        <div class="floating-item bat">🏏</div>
-        <div class="floating-item ball">🏐</div>
-        <div class="floating-item gloves">🧤</div>
-        <div class="floating-item helmet">⛑️</div>
-        <div class="floating-item wickets">🥅</div>
-        <div class="floating-item cup">🏆</div>
-    </div>
-    
-    <!-- Cricket Animation Elements -->
-    <div class="cricket-ball-anim" id="cricketBall"></div>
-    <div class="stumps-container" id="stumpsContainer">
-        <div class="stump"></div>
-        <div class="stump"></div>
-        <div class="stump"></div>
-        <div class="bails">
-            <div class="bail"></div>
-            <div class="bail"></div>
         </div>
     </div>
     
     <div class="container">
-        <header class="main-header">
-            <div class="logo">
-                <span class="cricket-ball">🏏</span>
-                <h1>IPL Match Predictor</h1>
-            </div>
-            <p class="subtitle">AI-Powered Match Outcome Prediction</p>
-            <div class="stats-bar">
-                <div class="stat">
-                    <span class="stat-value">16</span>
-                    <span class="stat-label">Teams</span>
+        <header class="header">
+            <div class="header-icon">🏏</div>
+            <h1>IPL Match Predictor</h1>
+            <p>AI-Powered Match Outcome Prediction</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="value" id="team-count">10</span>
+                    <span class="label">Teams</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-value">40+</span>
-                    <span class="stat-label">Venues</span>
+                <div class="stat-box">
+                    <span class="value" id="venue-count">40+</span>
+                    <span class="label">Venues</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-value">59%</span>
-                    <span class="stat-label">Accuracy</span>
+                <div class="stat-box">
+                    <span class="value" id="accuracy-stat">59%</span>
+                    <span class="label">Accuracy</span>
                 </div>
             </div>
         </header>
 
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="prematch" onclick="showTab('prematch')">
-                <span class="tab-icon">📊</span>
-                <span class="tab-text">Pre-Match</span>
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showTab('prematch')">
+                <span>📊</span>
+                <span>Pre-Match</span>
             </button>
-            <button class="tab-btn" data-tab="live" onclick="showTab('live')">
-                <span class="tab-icon">⚡</span>
-                <span class="tab-text">Live Match</span>
+            <button class="tab-btn" onclick="showTab('live')">
+                <span>⚡</span>
+                <span>Live Match</span>
             </button>
         </nav>
 
         <!-- Pre-Match Section -->
         <div id="prematch" class="tab-content active">
             <div class="card">
-                <div class="card-header">
+                <div class="card-title">
                     <h2>Match Setup</h2>
-                    <p>Configure the match details for prediction</p>
+                    <p>Configure match details for prediction</p>
                 </div>
 
-                <div class="form-grid">
+                <div class="form-row">
                     <div class="form-group">
                         <label for="team1">
-                            <span class="label-icon">🔴</span>
+                            <span class="icon">🔴</span>
                             Team 1 (Batting First)
                         </label>
-                        <div class="select-wrapper">
-                            <select id="team1" onchange="updateTeam2Options(); updateTossOptions();">
-                                <option value="">Select Team 1</option>
-                            </select>
-                        </div>
+                        <select id="team1" onchange="updateTeam2Options(); updateTossOptions();">
+                            <option value="">Select Team</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="team2">
-                            <span class="label-icon">🔵</span>
+                            <span class="icon">🔵</span>
                             Team 2 (Fielding First)
                         </label>
-                        <div class="select-wrapper">
-                            <select id="team2" onchange="updateTossOptions();">
-                                <option value="">Select Team 2</option>
-                            </select>
-                        </div>
+                        <select id="team2" onchange="updateTossOptions();">
+                            <option value="">Select Team</option>
+                        </select>
                     </div>
+                </div>
 
+                <div class="form-row">
                     <div class="form-group">
                         <label for="toss_winner">
-                            <span class="label-icon">🪙</span>
+                            <span class="icon">🪙</span>
                             Toss Winner
                         </label>
-                        <div class="select-wrapper">
-                            <select id="toss_winner">
-                                <option value="">Select Toss Winner</option>
-                            </select>
-                        </div>
+                        <select id="toss_winner">
+                            <option value="">Select Winner</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="toss_decision">
-                            <span class="label-icon">🎯</span>
+                            <span class="icon">🎯</span>
                             Toss Decision
                         </label>
-                        <div class="select-wrapper">
-                            <select id="toss_decision">
-                                <option value="bat">Bat First</option>
-                                <option value="field">Field First</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="venue">
-                            <span class="label-icon">🏟️</span>
-                            Venue
-                        </label>
-                        <div class="autocomplete-wrapper">
-                            <input type="text" id="venue-input" placeholder="Type stadium name..." oninput="showVenueSuggestions()" onfocus="showVenueSuggestions()">
-                            <div id="venue-suggestions" class="suggestions-list hidden"></div>
-                            <input type="hidden" id="venue" value="">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city">
-                            <span class="label-icon">📍</span>
-                            City
-                        </label>
-                        <input type="text" id="city" readonly class="readonly-input" placeholder="Auto-filled from venue">
+                        <select id="toss_decision">
+                            <option value="bat">Bat First</option>
+                            <option value="field">Field First</option>
+                        </select>
                     </div>
                 </div>
 
-                <button class="predict-btn" onclick="predictPrematch()">
-                    <span class="btn-icon">🔮</span>
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label for="venue-input">
+                            <span class="icon">🏟️</span>
+                            Venue
+                        </label>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="venue-input" placeholder="Type stadium name..." oninput="showVenueSuggestions()">
+                            <div id="venue-suggestions" class="suggestions-list hidden"></div>
+                        </div>
+                        <input type="hidden" id="venue" value="">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">
+                            <span class="icon">📍</span>
+                            City
+                        </label>
+                        <input type="text" id="city" readonly placeholder="Auto-filled">
+                    </div>
+                </div>
+
+                <button class="btn" onclick="predictPrematch()">
+                    <span>🔮</span>
                     Predict Winner
                 </button>
 
-                <div id="prematch-result" class="result-container hidden">
-                    <div class="result-card">
-                        <div class="winner-section">
-                            <div class="winner-badge">🏆 WINNER</div>
-                            <div class="winner-name" id="prematch-winner">-</div>
-                        </div>
-                        <div class="probabilities">
-                            <div class="prob-bar">
-                                <div class="prob-label">
-                                    <span>Team 1</span>
-                                    <span id="team1-prob">0%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill team1" id="team1-bar"></div>
-                                </div>
+                <div id="prematch-result" class="result hidden">
+                    <div class="winner-section">
+                        <div class="winner-badge">🏆 WINNER</div>
+                        <div class="winner-name" id="prematch-winner">-</div>
+                    </div>
+                    <div class="prob-section">
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <span>Team 1</span>
+                                <span id="team1-prob">0%</span>
                             </div>
                             <div class="prob-bar">
-                                <div class="prob-label">
-                                    <span>Team 2</span>
-                                    <span id="team2-prob">0%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill team2" id="team2-bar"></div>
-                                </div>
+                                <div class="prob-fill team1" id="team1-bar"></div>
                             </div>
                         </div>
-                        <div class="accuracy-badge">
-                            <span>Model Accuracy: <strong id="prematch-accuracy">0</strong>%</span>
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <span>Team 2</span>
+                                <span id="team2-prob">0%</span>
+                            </div>
+                            <div class="prob-bar">
+                                <div class="prob-fill team2" id="team2-bar"></div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="accuracy">
+                        Model Accuracy: <strong id="prematch-accuracy">0</strong>%
                     </div>
                 </div>
             </div>
@@ -216,139 +180,117 @@
         <!-- Live Prediction Section -->
         <div id="live" class="tab-content">
             <div class="card">
-                <div class="card-header">
+                <div class="card-title">
                     <h2>Live Match Tracker</h2>
-                    <p>Real-time win probability based on current match situation</p>
+                    <p>Real-time win probability</p>
                 </div>
 
                 <div class="teams-row">
                     <div class="form-group">
                         <label for="live-team1">
-                            <span class="label-icon">🏏</span>
+                            <span class="icon">🏏</span>
                             Chasing Team
                         </label>
-                        <div class="select-wrapper">
-                            <select id="live-team1">
-                                <option value="">Select Team</option>
-                            </select>
-                        </div>
+                        <select id="live-team1">
+                            <option value="">Select Team</option>
+                        </select>
                     </div>
 
-                    <div class="vs-divider">VS</div>
+                    <div class="vs">VS</div>
 
                     <div class="form-group">
                         <label for="live-team2">
-                            <span class="label-icon">🛡️</span>
+                            <span class="icon">🛡️</span>
                             Defending Team
                         </label>
-                        <div class="select-wrapper">
-                            <select id="live-team2">
-                                <option value="">Select Team</option>
-                            </select>
-                        </div>
+                        <select id="live-team2">
+                            <option value="">Select Team</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="match-situation">
-                    <h3>Match Situation</h3>
-                    <div class="live-stats-grid">
-                        <div class="stat-input">
-                            <label for="runs_scored">Runs Scored</label>
-                            <input type="number" id="runs_scored" min="0" max="300" value="0" class="simple-input">
-                        </div>
-
-                        <div class="stat-input">
-                            <label for="balls_bowled">Balls Bowled</label>
-                            <input type="number" id="balls_bowled" min="0" max="120" value="0" class="simple-input">
-                            <span class="input-hint" id="overs-display">0.0 overs</span>
-                        </div>
-
-                        <div class="stat-input">
-                            <label for="wickets_fallen">Wickets</label>
-                            <input type="number" id="wickets_fallen" min="0" max="10" value="0" class="simple-input">
-                            <span class="input-hint" id="wickets-remaining">10 remaining</span>
-                        </div>
-
-                        <div class="stat-input">
-                            <label for="target">Target</label>
-                            <input type="number" id="target" min="1" max="300" value="180" class="simple-input">
-                        </div>
+                <div class="stats-grid">
+                    <div class="stat-input">
+                        <label for="runs_scored">Runs Scored</label>
+                        <input type="number" id="runs_scored" min="0" max="300" value="0">
+                    </div>
+                    <div class="stat-input">
+                        <label for="balls_bowled">Balls Bowled</label>
+                        <input type="number" id="balls_bowled" min="0" max="120" value="0">
+                    </div>
+                    <div class="stat-input">
+                        <label for="wickets_fallen">Wickets</label>
+                        <input type="number" id="wickets_fallen" min="0" max="10" value="0">
+                    </div>
+                    <div class="stat-input">
+                        <label for="target">Target</label>
+                        <input type="number" id="target" min="1" max="300" value="180">
                     </div>
                 </div>
 
-                <button class="predict-btn live-btn" onclick="predictLive()">
-                    <span class="btn-icon">⚡</span>
+                <button class="btn btn-live" onclick="predictLive()">
+                    <span>⚡</span>
                     Calculate Win Probability
                 </button>
 
-                <div id="live-result" class="result-container hidden">
-                    <div class="result-card live">
-                        <div class="live-status-bar">
-                            <div class="status-item">
-                                <span class="status-label">Score</span>
-                                <span class="status-value" id="live-score">0/0</span>
+                <div id="live-result" class="result hidden">
+                    <div class="live-status">
+                        <div class="status-item">
+                            <span class="label">Score</span>
+                            <span class="value" id="live-score">0/0</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Overs</span>
+                            <span class="value" id="live-overs">0.0</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Need</span>
+                            <span class="value" id="runs-needed">180</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">RR</span>
+                            <span class="value" id="run-rate">0.00</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Req RR</span>
+                            <span class="value" id="req-rate">9.00</span>
+                        </div>
+                    </div>
+
+                    <div class="prob-section">
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <span>Chasing</span>
+                                <span id="chasing-prob-text">0%</span>
                             </div>
-                            <div class="status-item">
-                                <span class="status-label">Overs</span>
-                                <span class="status-value" id="live-overs">0.0</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Need</span>
-                                <span class="status-value" id="runs-needed">180</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">RR</span>
-                                <span class="status-value" id="run-rate">0.00</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Req RR</span>
-                                <span class="status-value" id="req-rate">9.00</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill team1" id="chasing-bar"></div>
                             </div>
                         </div>
-
-                        <div class="live-probabilities">
-                            <div class="team-prob">
-                                <div class="prob-header">
-                                    <span class="team-label">Chasing</span>
-                                    <span class="prob-value" id="chasing-prob-text">0%</span>
-                                </div>
-                                <div class="prob-progress-container">
-                                    <div class="prob-progress-bar">
-                                        <div class="prob-progress-fill chasing" id="chasing-bar"></div>
-                                    </div>
-                                </div>
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <span>Defending</span>
+                                <span id="defending-prob-text">0%</span>
                             </div>
-
-                            <div class="team-prob">
-                                <div class="prob-header">
-                                    <span class="team-label">Defending</span>
-                                    <span class="prob-value" id="defending-prob-text">0%</span>
-                                </div>
-                                <div class="prob-progress-container">
-                                    <div class="prob-progress-bar">
-                                        <div class="prob-progress-fill defending" id="defending-bar"></div>
-                                    </div>
-                                </div>
+                            <div class="prob-bar">
+                                <div class="prob-fill team2" id="defending-bar"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="match-insights">
-                            <div class="insight-item">
-                                <span class="insight-icon">📊</span>
-                                <span class="insight-text" id="match-situation-text">Enter match data to see analysis</span>
-                            </div>
-                        </div>
+                    <div class="insight">
+                        <span class="insight-text" id="match-situation-text">Enter match data</span>
+                    </div>
 
-                        <div class="accuracy-badge live-badge">
-                            <span>Live Model Accuracy: <strong id="live-accuracy">0</strong>%</span>
-                        </div>
+                    <div class="accuracy">
+                        Live Model Accuracy: <strong id="live-accuracy">0</strong>%
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="app-footer">
-            <p>Powered by Machine Learning • Trained on IPL 2008-2025 data</p>
+        <footer class="footer">
+            <p>Powered by Machine Learning • IPL 2008-2025</p>
         </footer>
     </div>
 
