@@ -470,3 +470,75 @@ function updateLiveHints() {
         element.addEventListener('input', updateLiveHints);
     }
 });
+
+// Parallax Stadium Background Effect
+let ticking = false;
+function updateParallax() {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.stadium-bg');
+    if (parallax) {
+        const speed = 0.5;
+        parallax.style.transform = `translateY(${scrolled * speed}px)`;
+    }
+    ticking = false;
+}
+
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+    }
+});
+
+// Cricket Ball Animation
+function playCricketAnimation(button) {
+    const ball = document.getElementById('cricketBall');
+    const stumps = document.getElementById('stumpsContainer');
+    const rect = button.getBoundingClientRect();
+    
+    // Position ball at button center
+    ball.style.left = (rect.left + rect.width / 2 - 15) + 'px';
+    ball.style.top = (rect.top + rect.height / 2 - 15) + 'px';
+    
+    // Show and animate ball
+    ball.classList.remove('flying');
+    void ball.offsetWidth; // Trigger reflow
+    ball.classList.add('flying');
+    
+    // Show stumps after ball starts moving
+    setTimeout(() => {
+        stumps.classList.add('show', 'hit');
+    }, 300);
+    
+    // Clean up animations
+    setTimeout(() => {
+        ball.classList.remove('flying');
+        stumps.classList.remove('show', 'hit');
+    }, 2000);
+}
+
+// Override prediction functions to add animations
+const originalPredictPrematch = predictPrematch;
+const originalPredictLive = predictLive;
+
+predictPrematch = function() {
+    const btn = document.querySelector('.predict-btn');
+    playCricketAnimation(btn);
+    btn.classList.add('predicting');
+    
+    setTimeout(() => {
+        btn.classList.remove('predicting');
+        originalPredictPrematch();
+    }, 500);
+};
+
+predictLive = function() {
+    const btn = document.querySelector('.live-btn');
+    playCricketAnimation(btn);
+    btn.classList.add('predicting');
+    
+    setTimeout(() => {
+        btn.classList.remove('predicting');
+        originalPredictLive();
+    }, 500);
+};
