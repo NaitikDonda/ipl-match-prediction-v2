@@ -23,9 +23,12 @@ function loadStats() {
         .catch(error => console.error('Error loading stats:', error));
 }
 
+// API Base URL - change this to your deployed URL
+const BASE_URL = 'https://ipl-match-prediction-v2-1.onrender.com';
+
 // Load teams from API
 function loadTeams() {
-    fetch('/api/teams')
+    fetch(`${BASE_URL}/api/teams`)
         .then(response => response.json())
         .then(data => {
             allTeams = data.teams;
@@ -36,7 +39,7 @@ function loadTeams() {
 
 // Load venues from API
 function loadVenues() {
-    fetch('/api/venues')
+    fetch(`${BASE_URL}/api/venues`)
         .then(response => response.json())
         .then(data => {
             allVenues = data.venues;
@@ -260,7 +263,7 @@ function predictPrematch() {
     btn.innerHTML = '<span class="btn-icon">⏳</span> Predicting...';
     btn.disabled = true;
 
-    fetch('/predict', {
+    fetch(`${BASE_URL}/predict`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -354,7 +357,7 @@ function predictLive() {
     btn.innerHTML = '<span class="btn-icon">⏳</span> Calculating...';
     btn.disabled = true;
 
-    fetch('/predict_live', {
+    fetch(`${BASE_URL}/predict_live`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
