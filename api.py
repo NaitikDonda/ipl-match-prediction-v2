@@ -194,28 +194,37 @@ def predict_prematch(team1, team2, toss_winner, toss_decision, venue, city):
     """
     Make pre-match prediction using model.pkl
     """
-    # Normalize inputs
-    team1 = normalize_team_name(team1)
-    team2 = normalize_team_name(team2)
-    toss_winner = normalize_team_name(toss_winner)
-    venue = normalize_venue_name(venue)
-    city = get_city_for_venue(venue)
+    try:
+        # Normalize inputs
+        team1 = normalize_team_name(team1)
+        team2 = normalize_team_name(team2)
+        toss_winner = normalize_team_name(toss_winner)
+        venue = normalize_venue_name(venue)
+        city = get_city_for_venue(venue)
 
-    features = create_prematch_features(team1, team2, toss_winner, toss_decision, venue, city)
-    X = PREPROCESSOR.transform(features)
-    pred = MODEL.predict(X)[0]
-    prob = MODEL.predict_proba(X)[0]
+        features = create_prematch_features(team1, team2, toss_winner, toss_decision, venue, city)
+        X = PREPROCESSOR.transform(features)
+        pred = MODEL.predict(X)[0]
+        prob = MODEL.predict_proba(X)[0]
 
-    winner = team1 if pred == 1 else team2
-    team1_prob = round(prob[1] * 100, 2)
-    team2_prob = round(prob[0] * 100, 2)
+        winner = team1 if pred == 1 else team2
+        team1_prob = round(prob[1] * 100, 2)
+        team2_prob = round(prob[0] * 100, 2)
 
-    return {
-        "winner": winner,
-        "team1_prob": team1_prob,
-        "team2_prob": team2_prob,
-        "model_accuracy": PREMATCH_ACCURACY
-    }
+        return {
+            "winner": winner,
+            "team1_prob": team1_prob,
+            "team2_prob": team2_prob,
+            "model_accuracy": PREMATCH_ACCURACY
+        }
+    except Exception as e:
+        return {
+            "error": f"Pre-match prediction failed: {str(e)}",
+            "winner": "Error",
+            "team1_prob": 0,
+            "team2_prob": 0,
+            "model_accuracy": 0
+        }
 
 
 def predict_live(team1, team2, runs_scored, balls_bowled, wickets_fallen, target):
