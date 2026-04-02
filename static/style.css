@@ -13,17 +13,18 @@
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
-    --bg-dark: #0f172a;
-    --bg-card: rgba(255, 255, 255, 0.95);
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --border: #e5e7eb;
-    --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --bg-dark: #0a0f1a;
+    --bg-card: rgba(20, 25, 40, 0.85);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    --gloss: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-dark);
+    background: #0a0f1a;
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
@@ -54,14 +55,158 @@ body {
     will-change: transform;
 }
 
-.stadium-overlay {
+/* Stadium Lights */
+.stadium-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.light-tower {
+    position: absolute;
+    width: 80px;
+    height: 200px;
+}
+
+.light-tower.left {
+    left: 5%;
+    top: -50px;
+}
+
+.light-tower.right {
+    right: 5%;
+    top: -50px;
+}
+
+.tower-pole {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 150px;
+    background: linear-gradient(90deg, #4a5568 0%, #718096 50%, #4a5568 100%);
+    border-radius: 6px;
+}
+
+.tower-head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
+    background: linear-gradient(180deg, #2d3748 0%, #4a5568 100%);
+    border-radius: 15px 15px 5px 5px;
+}
+
+.light-bulb {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fff 0%, #fef3c7 50%, transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fef3c7, 0 0 40px #fef3c7, 0 0 60px rgba(254, 243, 199, 0.5);
+    animation: lightFlicker 3s ease-in-out infinite;
+}
+
+.light-bulb:nth-child(1) { top: 8px; left: 10px; animation-delay: 0s; }
+.light-bulb:nth-child(2) { top: 8px; left: 26px; animation-delay: 0.2s; }
+.light-bulb:nth-child(3) { top: 8px; left: 42px; animation-delay: 0.4s; }
+.light-bulb:nth-child(4) { top: 18px; left: 10px; animation-delay: 0.6s; }
+.light-bulb:nth-child(5) { top: 18px; left: 26px; animation-delay: 0.8s; }
+.light-bulb:nth-child(6) { top: 18px; left: 42px; animation-delay: 1s; }
+
+@keyframes lightFlicker {
+    0%, 100% { opacity: 1; box-shadow: 0 0 20px #fef3c7, 0 0 40px #fef3c7, 0 0 60px rgba(254, 243, 199, 0.5); }
+    50% { opacity: 0.8; box-shadow: 0 0 15px #fef3c7, 0 0 30px #fef3c7, 0 0 45px rgba(254, 243, 199, 0.4); }
+}
+
+/* Floating Cricket Elements */
+.floating-elements {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.85) 50%, rgba(30, 60, 114, 0.9) 100%);
-    z-index: -2;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-item {
+    position: absolute;
+    opacity: 0.08;
+    font-size: 3rem;
+    animation: float 20s ease-in-out infinite;
+}
+
+.floating-item.bat {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    transform: rotate(-45deg);
+}
+
+.floating-item.ball {
+    top: 60%;
+    right: 15%;
+    animation-delay: 5s;
+    font-size: 2rem;
+}
+
+.floating-item.gloves {
+    top: 40%;
+    left: 80%;
+    animation-delay: 10s;
+    font-size: 2.5rem;
+}
+
+.floating-item.helmet {
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 15s;
+    font-size: 2.5rem;
+}
+
+.floating-item.wickets {
+    top: 70%;
+    left: 5%;
+    animation-delay: 7s;
+    font-size: 2rem;
+}
+
+.floating-item.cup {
+    top: 15%;
+    right: 10%;
+    animation-delay: 12s;
+    font-size: 2.5rem;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-30px) rotate(5deg); }
+    50% { transform: translateY(-15px) rotate(-5deg); }
+    75% { transform: translateY(-25px) rotate(3deg); }
+}
+
+/* Field Pattern Overlay */
+.field-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(34, 197, 94, 0.03) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 30% 80%, rgba(34, 197, 94, 0.02) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 70% 80%, rgba(34, 197, 94, 0.02) 0%, transparent 60%);
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Cricket Ball Animation */
@@ -350,8 +495,23 @@ body {
     background: var(--bg-card);
     border-radius: 20px;
     padding: 35px;
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: var(--gloss);
+    pointer-events: none;
+    border-radius: 20px 20px 0 0;
 }
 
 .card-header {
@@ -420,12 +580,14 @@ label {
 select, input[type="text"], input[type="number"] {
     width: 100%;
     padding: 14px 18px;
-    border: 2px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     font-size: 0.95rem;
-    background: white;
+    background: rgba(15, 20, 35, 0.6);
+    color: var(--text-primary);
     transition: all 0.3s;
     appearance: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 select {
@@ -436,7 +598,8 @@ select {
 select:focus, input:focus {
     outline: none;
     border-color: var(--secondary);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(15, 20, 35, 0.8);
 }
 
 .readonly-input {
@@ -828,27 +991,30 @@ select:focus, input:focus {
 .simple-input {
     width: 100%;
     padding: 14px 18px;
-    border: 2px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     font-size: 1rem;
     text-align: center;
     font-weight: 600;
     transition: all 0.3s;
-    /* Remove number arrows */
+    background: rgba(15, 20, 35, 0.6);
+    color: var(--text-primary);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     -moz-appearance: textfield;
     appearance: textfield;
+}
+
+.simple-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(15, 20, 35, 0.8);
 }
 
 .simple-input::-webkit-outer-spin-button,
 .simple-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-.simple-input:focus {
-    outline: none;
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 /* Autocomplete for venue */
