@@ -89,6 +89,12 @@ function updateLiveTeamOptions(changedId, otherId) {
     }
 }
 
+// Populate venue dropdown (for initial load)
+function populateVenueDropdown() {
+    // Venues are loaded, autocomplete will use allVenues array
+    console.log('Venues loaded:', allVenues.length);
+}
+
 // Show venue autocomplete suggestions
 function showVenueSuggestions() {
     const input = document.getElementById('venue-input');
