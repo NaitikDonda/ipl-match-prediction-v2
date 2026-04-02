@@ -93,7 +93,7 @@ function updateLiveTeamOptions(changedId, otherId) {
 function showVenueSuggestions() {
     const input = document.getElementById('venue-input');
     const suggestionsList = document.getElementById('venue-suggestions');
-    const searchText = input.value.toLowerCase();
+    const searchText = input.value.toLowerCase().trim();
     
     if (!searchText) {
         suggestionsList.classList.add('hidden');
@@ -105,6 +105,13 @@ function showVenueSuggestions() {
         v.venue.toLowerCase().includes(searchText) || 
         v.city.toLowerCase().includes(searchText)
     );
+    
+    // Auto-select if exact match
+    const exactMatch = allVenues.find(v => v.venue.toLowerCase() === searchText);
+    if (exactMatch) {
+        selectVenue(exactMatch.venue, exactMatch.city);
+        return;
+    }
     
     if (filtered.length === 0) {
         suggestionsList.innerHTML = '<div class="no-suggestions">No stadiums found</div>';
